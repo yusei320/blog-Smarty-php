@@ -1,0 +1,24 @@
+# Composer
+vendor/
+composer.lock
+
+# Smarty
+libs/Smarty/  # Si installation manuelle
+templates_c/
+cache/
+configs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Configuration locale (si vous avez un fichier config local)
+config_local.php
+

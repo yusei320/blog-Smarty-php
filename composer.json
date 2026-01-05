@@ -1,0 +1,14 @@
+{
+    "name": "blog-system",
+    "description": "Système de blog PHP/MySQL/Smarty",
+    "require": {
+        "php": ">=7.4",
+        "smarty/smarty": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Blog\\": "src/"
+        }
+    }
+}
+

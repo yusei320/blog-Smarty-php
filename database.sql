@@ -1,0 +1,22 @@
+-- Structure de la base de données pour le système de blog
+
+CREATE TABLE IF NOT EXISTS billets_blog (
+    ID INT NOT NULL AUTO_INCREMENT,
+    titre VARCHAR(120) NOT NULL,
+    contenu TEXT NOT NULL,
+    annonce TINYTEXT NOT NULL,
+    date_billet DATETIME NOT NULL,
+    categorie VARCHAR(12) NOT NULL,
+    PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS commentaires_blog (
+    ID_comment INT AUTO_INCREMENT,
+    nom VARCHAR(50) NOT NULL,
+    comment TEXT NOT NULL,
+    date_comment TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ID INT NOT NULL,
+    PRIMARY KEY (ID_comment),
+    FOREIGN KEY (ID) REFERENCES billets_blog(ID) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
