@@ -1,5 +1,5 @@
 {
-    "name": "blog-system",
+    "name": "yusei320/blog-system",
     "description": "Système de blog PHP/MySQL/Smarty",
     "require": {
         "php": ">=7.4",
@@ -11,4 +11,3 @@
         }
     }
 }
-
