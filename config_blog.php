@@ -4,6 +4,11 @@
  * Configure la connexion MySQL et initialise Smarty
  */
 
+// Activer l'affichage des erreurs pour le débogage (utile sur Vercel si page blanche)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Configuration MySQL (supporte les variables d'environnement Vercel)
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost:3309');
 define('DB_NAME', getenv('DB_NAME') ?: 'blog_db');
