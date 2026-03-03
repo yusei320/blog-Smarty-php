@@ -4,11 +4,11 @@
  * Configure la connexion MySQL et initialise Smarty
  */
 
-// Configuration MySQL
-define('DB_HOST', 'localhost:3309');  // Port 3309 spécifié
-define('DB_NAME', 'blog_db');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// Configuration MySQL (supporte les variables d'environnement Vercel)
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost:3309');
+define('DB_NAME', getenv('DB_NAME') ?: 'blog_db');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
 
 // Chemin vers Smarty
 // D'abord, on essaie avec Composer (si installé)
@@ -48,17 +48,22 @@ try {
 $smarty = new Smarty();
 
 // Configuration des répertoires Smarty
-$smarty->setTemplateDir('templates');
-$smarty->setCompileDir('templates_c');
-$smarty->setCacheDir('cache');
-$smarty->setConfigDir('configs');
+$smarty->setTemplateDir(__DIR__ . '/templates');
+$smarty->setConfigDir(__DIR__ . '/configs');
 
-// Créer les répertoires s'ils n'existent pas
-if (!file_exists('templates_c')) {
-    mkdir('templates_c', 0777, true);
-}
-if (!file_exists('cache')) {
-    mkdir('cache', 0777, true);
+// Sur Vercel, seul le dossier /tmp est accessible en écriture
+if (getenv('VERCEL') == '1' || getenv('VERCEL_ENV')) {
+    $smarty->setCompileDir('/tmp/templates_c');
+    $smarty->setCacheDir('/tmp/cache');
+    
+    if (!file_exists('/tmp/templates_c')) mkdir('/tmp/templates_c', 0777, true);
+    if (!file_exists('/tmp/cache')) mkdir('/tmp/cache', 0777, true);
+} else {
+    $smarty->setCompileDir(__DIR__ . '/templates_c');
+    $smarty->setCacheDir(__DIR__ . '/cache');
+    
+    if (!file_exists(__DIR__ . '/templates_c')) mkdir(__DIR__ . '/templates_c', 0777, true);
+    if (!file_exists(__DIR__ . '/cache')) mkdir(__DIR__ . '/cache', 0777, true);
 }
 
 // Options de débogage (désactivez en production)
